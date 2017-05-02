@@ -45,14 +45,22 @@
 
  (:action clean-up
   :parameters (?r - robot ?y - tile ?x - tile)
+  ;; here are the preconditions for clean up,
+  ;; firstly the location of the robot must be determined,
+  ;; once this is complete the tile above the robots current position
+  ;; must be checked to ensure that there is not another robot in the
+  ;; way, after that the tile above has not already been cleaned
+  ;; if all these parameters are met then the program moves onto
+  ;; effects, if not the program returns 'false' and starts over from the
+  ;; beginning.
   :precondition (and
                  (robot-at ?r ?y)                
 				(up ?x ?y)
-                 ;;Checks if the tile above is clear
-                (clear ?x)  
-                 ;;Checks the tile above hasn't already been cleaned    
+                (clear ?x)    
                 (not(cleaned ?x)) 
  )
+  ;; If the above requirents are met then the tile state above the
+  ;; robot will be changed to true
   :effect (and
            (cleaned ?x)
 					)
@@ -60,22 +68,21 @@
 
  (:action clean-down
   :parameters (?r - robot ?y - tile ?x - tile)
+  ;; This is essentially the same function as clean-up but instead it is
+  ;; checking the tile below the robot, again if the preconditions are	
+  ;; met then the effects can be initialised
   :precondition (and
                  (robot-at ?r ?y)                
 				(down ?x ?y)
-                 ;;Checks if the tile below is clear
-                (clear ?x)  
-                 ;;Checks the tile below hasn't already been cleaned    
+                (clear ?x)     
                 (not(cleaned ?x))
-              	)            
-								
-          
+ )                     
   :effect (and
            (cleaned ?x)
            )	      
  )
 
-
+ ;; Movement action definitions
  (:action up 
   :parameters (?r - robot ?y - tile ?x - tile)
   :precondition (and
