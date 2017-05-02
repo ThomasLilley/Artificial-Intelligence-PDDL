@@ -4,6 +4,8 @@
 ;; Define the name for this domain (needs to match the domain definition
 ;;   in the problem files)
 
+;; Solution - Thomas Lilley 2017
+
 (define (domain floor-tile)
 
 	;; We only require some typing to make this plan faster. We can do without!
